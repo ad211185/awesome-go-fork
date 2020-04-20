@@ -1,3 +1,7 @@
 tmpl/index.html
 public/**
 awesome-go
+
+# Folders
+.idea
+.vscode
