@@ -1,0 +1,29 @@
+name: Publish
+on:
+  push:
+    branches: [ "master" ]
+  pull_request:
+    branches: [ "master" ]
+  workflow_dispatch: {}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/setup-go@v4
+        with:
+          go-version: '1.12'
+      - uses: actions/checkout@v3
+      - name: Install Awesome Framework
+        run: go get gitlab.com/Ma_124/awesome-framework/cmd/awesome
+      - name: Awesome Version
+        run: awesome version
+      - name: Build
+        run: awesome internal -githubci
+      - name: Upload
+        uses: actions/upload-pages-artifact@v2
+        with:
+          path: public/
+      - name: Deploy
+        uses: actions/deploy-pages@v2
